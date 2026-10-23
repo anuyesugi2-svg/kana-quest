@@ -126,8 +126,8 @@ export function buildKanaStage(script: Script, words: KanaWordsFile): Stage {
       ...ids(row(s, 'wa', 'n')),
       ...confusableIds(s),
     ]),
-    u('g-z', `${x('が')} & ${x('ざ')} rows`, 'Dakuten ゛: G and Z', 'kana', ids(row(s, 'ga', 'za'))),
-    u('d-b-p', `${x('だ')} ${x('ば')} ${x('ぱ')} rows`, 'Dakuten and handakuten ゜', 'kana', ids(row(s, 'da', 'ba', 'pa'))),
+    u('g-z', `${x('が')} & ${x('ざ')} rows`, `Dakuten (the two dots): ${x('か')}→${x('が')}`, 'kana', ids(row(s, 'ga', 'za'))),
+    u('d-b-p', `${x('だ')} ${x('ば')} ${x('ぱ')} rows`, `Dakuten and the handakuten circle: ${x('は')}→${x('ぱ')}`, 'kana', ids(row(s, 'da', 'ba', 'pa'))),
     u('yoon-1', `${x('きゃ')} combos`, 'Combined sounds I', 'kana', ids(yoon(s, 'ky', 'sh', 'ch', 'ny', 'hy'))),
     u('yoon-2', `${x('みゃ')} combos`, 'Combined sounds II', 'kana', ids(yoon(s, 'my', 'ry', 'gy', 'j', 'by', 'py'))),
   ];

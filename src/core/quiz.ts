@@ -379,7 +379,8 @@ export function modesFor(item: Item, purpose: Purpose, ctx: QuizContext): Mode[]
   switch (item.kind) {
     case 'kana': {
       const m: Mode[] = ['read-type', 'read-choice', 'pick-kana'];
-      if (confusablePartners(ctx, item.char).length) m.push('confusable');
+      const partners = confusablePartners(ctx, item.char);
+      if (ctx.pool.some((p) => p.kind === 'kana' && partners.includes(p.char))) m.push('confusable');
       if (ctx.listening) m.push('listen');
       if (ctx.writing && purpose !== 'boss' && ctx.hasStrokes(item.char) && [...item.char].length === 1) m.push('trace');
       return fast ? m.filter((x) => x !== 'read-type' && x !== 'trace') : m;
