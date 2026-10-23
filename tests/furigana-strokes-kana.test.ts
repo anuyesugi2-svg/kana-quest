@@ -20,6 +20,7 @@ describe('furigana', () => {
     expect(segmentsRomaji(segs)).toBe('watashi wa gakusei desu.');
     expect(furiText('わたし_は がくせい です。')).toBe('わたしはがくせいです。');
     expect(segmentsRomaji(parseFurigana('すし_を たべます。'))).toBe('sushi o tabemasu.');
+    expect(segmentsRomaji(parseFurigana('パン_と たまご_を かいました。'))).toBe('pan to tamago o kaimashita.');
   });
 
   it('leaves は inside words alone', () => {

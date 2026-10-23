@@ -48,7 +48,53 @@ export interface SentenceItem {
   en: string;
 }
 
-export type Item = KanaItem | WordItem | KanjiItem | GrammarItem | SentenceItem;
+export interface PassageQuestionItem {
+  kind: 'passageq';
+  id: string; // "p:<passage id>:<n>"
+  passageId: string;
+  index: number;
+}
+
+export type Item = KanaItem | WordItem | KanjiItem | GrammarItem | SentenceItem | PassageQuestionItem;
+
+// ---------------------------------------------------------------- grammar & reading content
+
+/** Japanese text in furigana format, e.g. "[私|わたし]_は [学生|がくせい] です。" */
+export type Furi = string;
+
+export interface Example {
+  jp: Furi;
+  en: string;
+  note?: string;
+}
+
+export type GrammarQuestion =
+  /** Fill the blank (＿ in jp) with the right particle/word. */
+  | { t: 'blank'; jp: Furi; en: string; options: string[]; answer: string }
+  /** Arrange tiles into the sentence that matches the English. Tiles are listed in the correct order. */
+  | { t: 'tiles'; en: string; tiles: string[]; extra?: string[] }
+  /** Multiple choice: pick the right Japanese for a prompt (conjugation, translation, usage). */
+  | { t: 'choice'; prompt: string; jp?: Furi; options: string[]; answer: string; optionsJp?: boolean };
+
+export interface GrammarPoint {
+  id: string;
+  level: StageId;
+  title: string; // "は (topic marker)"
+  pattern: string; // "A は B です"
+  meaning: string;
+  explanation: string[]; // short paragraphs
+  table?: { caption?: string; head: string[]; rows: string[][] };
+  examples: Example[];
+  mistakes: string[];
+  practice: GrammarQuestion[];
+}
+
+export interface Passage {
+  id: string;
+  title: string;
+  lines: Example[];
+  questions: { q: string; options: string[]; answer: string }[];
+}
 
 export type UnitKind = 'kana' | 'words' | 'confusables' | 'vocab' | 'kanji' | 'grammar' | 'reading';
 

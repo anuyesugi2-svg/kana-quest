@@ -1,6 +1,6 @@
 // Furigana strings use Tatoeba's format: "[漢字|かん|じ]は..." (one reading per kanji,
 // or a single reading for the whole group: "[学生|がくせい]").
-// Hand-written content may mark particles explicitly with "_": "わたし_はがくせいです" so は reads "wa",
+// Hand-written content may mark one-kana particles explicitly with "_": "わたし_はがくせいです" so は reads "wa",
 // and may use ASCII spaces as invisible word breaks (they only affect romaji spacing).
 
 import { isKanaChar, isKanjiChar, kanaToRomaji } from './romaji';
@@ -22,7 +22,7 @@ export function parseFurigana(furi: string): Segment[] {
     for (let i = 0; i < s.length; i++) {
       if (s[i] === ' ') {
         brk = true;
-      } else if (s[i] === '_' && /[はへを]/.test(s[i + 1] ?? '')) {
+      } else if (s[i] === '_' && /[ぁ-ゖ]/.test(s[i + 1] ?? '')) {
         segs.push({ text: s[i + 1], reading: s[i + 1], ruby: false, particle: true });
         i++;
       } else {
