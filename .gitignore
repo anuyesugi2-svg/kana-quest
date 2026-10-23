@@ -4,4 +4,5 @@ dev-dist/
 tools/raw/
 tools/__pycache__/
 *.log
+e2e-shots/
 .DS_Store
